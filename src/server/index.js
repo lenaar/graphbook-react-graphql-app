@@ -6,18 +6,21 @@ import path from "path";
 import services from "./services";
 
 const app = express();
-app.use(helmet());
 
-app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
-      imgSrc: ["'self'", "data:", "*.amazonaws.com"],
-    },
-  })
-);
+if (process.env.NODE_ENV === "production") {
+  app.use(helmet());
+
+  app.use(
+    helmet.contentSecurityPolicy({
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "'unsafe-inline'"],
+        styleSrc: ["'self'", "'unsafe-inline'"],
+        imgSrc: ["'self'", "data:", "*.amazonaws.com"],
+      },
+    })
+  );
+}
 
 app.use(compress());
 app.use(cors());
