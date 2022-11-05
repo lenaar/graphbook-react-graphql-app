@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+import logger from "../../helpers/logger";
 
 let posts = [1, 2].map((id) => ({
   id,
