@@ -18,7 +18,7 @@ module.exports = {
         onDelete: "SET NULL",
         onUpdate: "cascade",
       },
-      charId: {
+      chatId: {
         type: Sequelize.INTEGER,
         references: {
           model: "Chats",
