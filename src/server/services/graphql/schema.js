@@ -31,11 +31,18 @@ const typeDefinitions = `
     posts: [Post]
   }
 
+  input ChatInput {
+    users: [Int]
+  }
+
   input PostInput {
     text: String!
   }
   
   type RootMutation {
+    addChat (
+      chat: ChatInput!
+    ): Chat
     addPost (
       post: PostInput!
     ): Post

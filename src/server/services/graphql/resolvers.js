@@ -53,6 +53,17 @@ export default function resolver() {
       },
     },
     RootMutation: {
+      addChat(root, { chat }, context) {
+        return Chat.create().then((newChat) => {
+          return Promise.all([newChat.setUsers(chat.users)]).then(() => {
+            logger.log({
+              level: "info",
+              message: "Chat was created",
+            });
+            return newChat;
+          });
+        });
+      },
       addPost(root, { post }, context) {
         return User.findAll().then((users) => {
           // the first user in the users array
