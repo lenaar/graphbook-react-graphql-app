@@ -34,6 +34,10 @@ const typeDefinitions = `
   input ChatInput {
     users: [Int]
   }
+  input MessageInput {
+    chatId: Int!
+    text: String!
+  }
 
   input PostInput {
     text: String!
@@ -43,6 +47,9 @@ const typeDefinitions = `
     addChat (
       chat: ChatInput!
     ): Chat
+    addMessage(
+      message: MessageInput!
+    ): Message
     addPost (
       post: PostInput!
     ): Post

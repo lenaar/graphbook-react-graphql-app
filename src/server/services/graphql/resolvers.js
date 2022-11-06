@@ -64,6 +64,20 @@ export default function resolver() {
           });
         });
       },
+      addMessage(root, { message }, context) {
+        return User.findAll().then((users) => {
+          const { id: userId } = users[0];
+          return Message.create({ ...message }).then((newMessage) => {
+            return Promise.all([
+              newMessage.setUser(userId),
+              newMessage.setChat(message.chatId),
+            ]).then(() => {
+              logger.log({ level: "info", message: "Message was created" });
+              return newMessage;
+            });
+          });
+        });
+      },
       addPost(root, { post }, context) {
         return User.findAll().then((users) => {
           // the first user in the users array
