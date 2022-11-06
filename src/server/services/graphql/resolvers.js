@@ -1,30 +1,28 @@
 import { faker } from "@faker-js/faker";
 import logger from "../../helpers/logger";
 
-let posts = [1, 2].map((id) => ({
-  id,
-  text: faker.lorem.paragraph(),
-  user: { avatar: faker.image.avatar(), username: faker.internet.userName() },
-}));
-
-const resolvers = {
-  RootQuery: {
-    posts(root, args, context) {
-      return posts;
+export default function resolver() {
+  const { db } = this;
+  const { Post } = db.models;
+  const resolvers = {
+    RootQuery: {
+      posts(root, args, context) {
+        return Post.findAll({ order: [["createdAt", "DESC"]] });
+      },
     },
-  },
-  RootMutation: {
-    addPost(root, { post, user }, context) {
-      const postObject = {
-        ...post,
-        user,
-        id: posts.length + 1,
-      };
-      posts.push(postObject);
-      logger.log({ level: "info", message: "Post was created" });
-      return postObject;
+    RootMutation: {
+      addPost(root, { post, user }, context) {
+        const postObject = {
+          ...post,
+          user,
+          id: posts.length + 1,
+        };
+        posts.push(postObject);
+        logger.log({ level: "info", message: "Post was created" });
+        return postObject;
+      },
     },
-  },
-};
+  };
 
-export default resolvers;
+  return resolvers;
+}
