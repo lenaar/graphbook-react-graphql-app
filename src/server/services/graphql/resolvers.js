@@ -1,4 +1,3 @@
-import { faker } from "@faker-js/faker";
 import logger from "../../helpers/logger";
 
 export default function resolver() {
