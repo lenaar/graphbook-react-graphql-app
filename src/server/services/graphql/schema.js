@@ -26,8 +26,9 @@ const typeDefinitions = `
   }
 
   type RootQuery {
-    posts: [Post]
+    chat(chatId: Int): Chat
     chats: [Chat]
+    posts: [Post]
   }
 
   input PostInput {
