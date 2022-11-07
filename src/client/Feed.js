@@ -29,7 +29,8 @@ const GET_POSTS = gql`
 `;
 
 const Feed = () => {
-  const { loading, error, data } = useQuery(GET_POSTS);
+  //polling fetch every 5000 ms = 5 seconds
+  const { loading, error, data } = useQuery(GET_POSTS, { pollInterval: 5000 });
   const [postContent, setPostContent] = useState("");
   const [addPost] = useMutation(ADD_POST, {
     optimisticResponse: {
