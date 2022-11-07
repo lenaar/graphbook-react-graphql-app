@@ -43,6 +43,30 @@ const shorten = (text) => {
 
 const Chats = () => {
   const { loading, error, data } = useQuery(GET_CHATS);
+  const [openChats, setOpenChats] = useState([]);
+
+  const openChat = (id) => {
+    var openChatsTemp = openChats.slice();
+
+    if (openChatsTemp.indexOf(id) === -1) {
+      if (openChatsTemp.length > 2) {
+        openChatsTemp = openChatsTemp.slice(1);
+      }
+
+      openChatsTemp.push(id);
+    }
+
+    setOpenChats(openChatsTemp);
+  };
+
+  const closeChat = (id) => {
+    var openChatsTemp = openChats.slice();
+
+    const index = openChatsTemp.indexOf(id);
+
+    openChatsTemp.splice(index, 1), setOpenChats(openChatsTemp);
+  };
+
   if (loading)
     return (
       <div className="chats">
