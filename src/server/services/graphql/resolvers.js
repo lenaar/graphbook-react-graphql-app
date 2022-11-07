@@ -5,6 +5,11 @@ export default function resolver() {
   const { Chat, Message, Post, User } = db.models;
   const resolvers = {
     Chat: {
+      lastMessage(chat, arg, context) {
+        return chat
+          .getMessages({ limit: 1, order: [["id", "DESC"]] })
+          .then((message) => message[0]);
+      },
       messages(chat, args, context) {
         return chat.getMessages({ order: [["id", "ASC"]] });
       },
