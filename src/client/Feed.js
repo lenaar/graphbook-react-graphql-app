@@ -32,10 +32,37 @@ const Feed = () => {
   const { loading, error, data } = useQuery(GET_POSTS);
   const [postContent, setPostContent] = useState("");
   const [addPost] = useMutation(ADD_POST, {
+    optimisticResponse: {
+      __typename: "mutation",
+      addPost: {
+        __typename: "Post",
+        text: postContent,
+        id: -1,
+        user: {
+          __typename: "User",
+          username: "Loading...",
+          avatar: "/public/loading.gif",
+        },
+      },
+    },
     update(cache, { data: { addPost } }) {
-      const data = cache.readQuery({ query: GET_POSTS });
-      const newData = { posts: [addPost, ...data.posts] };
-      cache.writeQuery({ query: GET_POSTS, data: newData });
+      cache.modify({
+        fields: {
+          posts(existingPosts = []) {
+            const newPostRef = cache.writeFragment({
+              data: addPost,
+
+              fragment: gql`
+                fragment NewPost on Post {
+                  id
+                }
+              `,
+            });
+
+            return [newPostRef, ...existingPosts];
+          },
+        },
+      });
     },
   });
 
@@ -68,7 +95,10 @@ const Feed = () => {
       </div>
       <div className="feed">
         {posts.map((post, i) => (
-          <div key={post.id} className="post">
+          <div
+            key={post.id}
+            className={"post " + (post.id < 0 ? "optimistic" : "")}
+          >
             <div className="header">
               <img src={post.user.avatar} />
 
