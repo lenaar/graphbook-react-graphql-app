@@ -32,7 +32,11 @@ const Feed = () => {
   const { loading, error, data } = useQuery(GET_POSTS);
   const [postContent, setPostContent] = useState("");
   const [addPost] = useMutation(ADD_POST, {
-    refetchQueries: [{ query: GET_POSTS }],
+    update(cache, { data: { addPost } }) {
+      const data = cache.readQuery({ query: GET_POSTS });
+      const newData = { posts: [addPost, ...data.posts] };
+      cache.writeQuery({ query: GET_POSTS, data: newData });
+    },
   });
 
   const handleSubmit = (event) => {
