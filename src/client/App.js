@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { faker } from "@faker-js/faker";
+import Chats from "./Chats";
 import Feed from "./Feed";
 import "../../assets/css/style.css";
 
@@ -22,6 +23,7 @@ const App = () => {
         />
       </Helmet>
       <Feed />
+      <Chats />
     </div>
   );
 };
