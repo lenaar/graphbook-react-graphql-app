@@ -31,7 +31,9 @@ const GET_POSTS = gql`
 const Feed = () => {
   const { loading, error, data } = useQuery(GET_POSTS);
   const [postContent, setPostContent] = useState("");
-  const [addPost] = useMutation(ADD_POST);
+  const [addPost] = useMutation(ADD_POST, {
+    refetchQueries: [{ query: GET_POSTS }],
+  });
 
   const handleSubmit = (event) => {
     event.preventDefault();
