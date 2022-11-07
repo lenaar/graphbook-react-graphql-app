@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { gql, useQuery, useMutation } from "@faker-js/faker";
+import { gql, useQuery, useMutation } from "@apollo/client";
 import "../../assets/css/style.css";
 
 const ADD_POST = gql`
