@@ -1,34 +1,49 @@
 import React, { useState } from "react";
-import { faker } from "@faker-js/faker";
+import { gql, useQuery, useMutation } from "@faker-js/faker";
 import "../../assets/css/style.css";
 
-const initialPosts = [1, 2].map((id) => ({
-  id,
-  text: faker.lorem.paragraph(),
-  user: { avatar: faker.image.avatar(), username: faker.internet.userName() },
-}));
+const ADD_POST = gql`
+  mutation addPost($post: PostInput!) {
+    addPost(post: $post) {
+      id
+      text
+      user {
+        username
+        avatar
+      }
+    }
+  }
+`;
+
+const GET_POSTS = gql`
+  {
+    posts {
+      id
+      text
+      user {
+        avatar
+        username
+      }
+    }
+  }
+`;
 
 const Feed = () => {
-  const [posts, setPosts] = useState(initialPosts);
+  const { loading, error, data } = useQuery(GET_POSTS);
   const [postContent, setPostContent] = useState("");
+  const [addPost] = useMutation(ADD_POST);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const newPost = {
-      id: posts.length + 1,
-      text: postContent,
-      user: {
-        avatar: faker.image.avatar(),
-        username: faker.internet.userName(),
-      },
-    };
-    console.log("postContent", postContent);
-
-    setPosts([newPost, ...posts]);
-
+    addPost({ variables: { post: { text: postContent } } });
     setPostContent("");
   };
+
+  if (loading) return "Loading ...";
+  if (error) return `Error! ${error.message}`;
+  const { posts } = data;
+
   return (
     <div className="container">
       <div className="postForm">
