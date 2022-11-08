@@ -83,25 +83,31 @@ const Chats = () => {
   const { chats } = data;
 
   return (
-    <div className="chats">
-      {chats.map((chat, i) => (
-        <div key={chat.id} className="chat">
-          <div className="header">
-            <img
-              src={
-                chat.users.length > 2
-                  ? faker.image.abstract()
-                  : chat.users[1].avatar
-              }
-            />
+    <div className="wrapper">
+      <div className="chats">
+        {chats.map((chat, i) => (
+          <div
+            key={"chat" + chat.id}
+            className="chat"
+            onClick={() => openChat(chat.id)}
+          >
+            <div className="header">
+              <img
+                src={
+                  chat.users.length > 2
+                    ? faker.image.abstract()
+                    : chat.users[1].avatar
+                }
+              />
 
-            <div>
-              <h2>{shorten(usernamesToString(chat.users))}</h2>
-              <span>{chat?.lastMessage?.text}</span>
+              <div>
+                <h2>{shorten(usernamesToString(chat.users))}</h2>
+                <span>{chat?.lastMessage?.text}</span>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };
