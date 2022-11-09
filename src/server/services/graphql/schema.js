@@ -1,5 +1,4 @@
 const typeDefinitions = `
-
   type User {
     id: Int
     avatar: String
@@ -26,15 +25,21 @@ const typeDefinitions = `
     lastMessage: Message
   }
 
+  type PostFeed {
+    posts: [Post]
+  }
+
   type RootQuery {
     chat(chatId: Int): Chat
     chats: [Chat]
     posts: [Post]
+    postsFeed(page: Int, limit: Int): PostFeed
   }
 
   input ChatInput {
     users: [Int]
   }
+
   input MessageInput {
     chatId: Int!
     text: String!

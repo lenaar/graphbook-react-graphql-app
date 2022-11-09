@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { gql, useQuery } from "@apollo/client";
+import Chat from "./Chat";
 
 const GET_CHATS = gql`
   {
@@ -70,7 +71,7 @@ const Chats = () => {
   if (loading)
     return (
       <div className="chats">
-        <p>Loading ...</p>
+        <p>Loading...</p>
       </div>
     );
   if (error)
@@ -106,6 +107,15 @@ const Chats = () => {
               </div>
             </div>
           </div>
+        ))}
+      </div>
+      <div className="openChats">
+        {openChats.map((chatId, i) => (
+          <Chat
+            chatId={chatId}
+            key={"chatWindow" + chatId}
+            closeChat={closeChat}
+          />
         ))}
       </div>
     </div>

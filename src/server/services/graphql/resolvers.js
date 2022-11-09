@@ -56,6 +56,20 @@ export default function resolver() {
       posts(root, args, context) {
         return Post.findAll({ order: [["createdAt", "DESC"]] });
       },
+      postsFeed(root, { page, limit }) {
+        let skip = 0;
+        if (page && limit) {
+          skip = page * limit;
+        }
+        let query = {
+          order: [["createdAt", "DESC"]],
+          offset: skip,
+        };
+        if (limit) {
+          query.limit = limit;
+        }
+        return { posts: Post.findAll(query) };
+      },
     },
     RootMutation: {
       addChat(root, { chat }, context) {
