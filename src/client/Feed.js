@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { gql, useQuery, useMutation } from "@apollo/client";
 import InfiniteScroll from "react-infinite-scroll-component";
 import "../../assets/css/style.css";
+import Loading from "./components/loading";
+import Error from "./components/error";
 
 const ADD_POST = gql`
   mutation addPost($post: PostInput!) {
@@ -108,8 +110,13 @@ const Feed = () => {
     setPostContent("");
   };
 
-  if (loading) return "Loading ...";
-  if (error) return `Error! ${error.message}`;
+  if (loading) return <Loading />;
+  if (error)
+    return (
+      <Error>
+        <p>{error.message}</p>
+      </Error>
+    );
   const { postsFeed } = data;
   const { posts } = postsFeed;
 
