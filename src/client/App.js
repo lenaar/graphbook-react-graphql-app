@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet";
 import { faker } from "@faker-js/faker";
 import Chats from "./Chats";
 import Feed from "./Feed";
+import "./components/fontawesome";
 import "../../assets/css/style.css";
 
 const initialPosts = [1, 2].map((id) => ({
