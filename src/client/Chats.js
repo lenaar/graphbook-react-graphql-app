@@ -3,22 +3,7 @@ import { gql, useQuery } from "@apollo/client";
 import Chat from "./Chat";
 import Loading from "./components/loading";
 import Error from "./components/error";
-
-const GET_CHATS = gql`
-  {
-    chats {
-      id
-      users {
-        id
-        avatar
-        username
-      }
-      lastMessage {
-        text
-      }
-    }
-  }
-`;
+import { useGetChatsQuery } from "./apollo/queries/getChats";
 
 const usernamesToString = (users) => {
   const userList = users.slice(1);
@@ -45,7 +30,7 @@ const shorten = (text) => {
 };
 
 const Chats = () => {
-  const { loading, error, data } = useQuery(GET_CHATS);
+  const { loading, error, data } = useGetChatsQuery();
   const [openChats, setOpenChats] = useState([]);
 
   const openChat = (id) => {
