@@ -4,6 +4,8 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import "../../assets/css/style.css";
 import Loading from "./components/loading";
 import Error from "./components/error";
+import Post from "./components/post";
+import { GET_POSTS } from "./apollo/queries/getPosts";
 
 const ADD_POST = gql`
   mutation addPost($post: PostInput!) {
@@ -13,21 +15,6 @@ const ADD_POST = gql`
       user {
         username
         avatar
-      }
-    }
-  }
-`;
-
-const GET_POSTS = gql`
-  query postsFeed($page: Int, $limit: Int) {
-    postsFeed(page: $page, limit: $limit) {
-      posts {
-        id
-        text
-        user {
-          avatar
-          username
-        }
       }
     }
   }
@@ -147,17 +134,8 @@ const Feed = () => {
             </div>
           }
         >
-          {posts.map((post, i) => (
-            <div
-              key={post.id}
-              className={"post " + (post.id < 0 ? "optimistic" : "")}
-            >
-              <div className="header">
-                <img src={post.user.avatar} />
-                <h2>{post.user.username}</h2>
-              </div>
-              <p className="content">{post.text}</p>
-            </div>
+          {posts.map((post) => (
+            <Post key={post.id} post={post} />
           ))}
         </InfiniteScroll>
       </div>
