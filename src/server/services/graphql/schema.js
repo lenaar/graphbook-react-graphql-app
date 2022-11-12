@@ -28,6 +28,9 @@ const typeDefinitions = `
   type PostFeed {
     posts: [Post]
   }
+  type Response {
+    success: Boolean
+  }
 
   type RootQuery {
     chat(chatId: Int): Chat
@@ -59,6 +62,9 @@ const typeDefinitions = `
     addPost (
       post: PostInput!
     ): Post
+    deletePost (
+      postId: Int!
+    ): Response
   }
 
   schema {
