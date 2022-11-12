@@ -28,8 +28,13 @@ const typeDefinitions = `
   type PostFeed {
     posts: [Post]
   }
+
   type Response {
     success: Boolean
+  }
+  
+  type UserSearch {
+    users: [User]
   }
 
   type RootQuery {
@@ -37,6 +42,7 @@ const typeDefinitions = `
     chats: [Chat]
     posts: [Post]
     postsFeed(page: Int, limit: Int): PostFeed
+    usersSearch(page: Int, limit: Int, text: String!): UserSearch
   }
 
   input ChatInput {
