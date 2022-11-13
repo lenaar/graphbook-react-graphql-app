@@ -1,4 +1,8 @@
 const typeDefinitions = `
+  type Auth {
+    token: String
+  } 
+
   type User {
     id: Int
     avatar: String
@@ -71,6 +75,10 @@ const typeDefinitions = `
     deletePost (
       postId: Int!
     ): Response
+    login (
+      email: String!
+      password: String!
+    ): Auth
   }
 
   schema {
