@@ -26,6 +26,9 @@ module.exports = {
           "2022-07-01T00:00:00.000Z",
           "2022-11-05T00:00:00.000Z"
         ),
+        password:
+          "$2a$10$bE3ovf9/Tiy/d68bwNUQ0.zCjwtNFq9ukg9h4rhKiHCb6x5ncKife",
+        email: "test1@example.com",
       })),
       {}
     );
