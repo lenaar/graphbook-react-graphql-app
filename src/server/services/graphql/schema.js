@@ -1,4 +1,6 @@
 const typeDefinitions = `
+  directive @auth on QUERY | FIELD_DEFINITION | FIELD
+  
   type Auth {
     token: String
   } 
@@ -45,7 +47,7 @@ const typeDefinitions = `
     chat(chatId: Int): Chat
     chats: [Chat]
     posts: [Post]
-    postsFeed(page: Int, limit: Int): PostFeed
+    postsFeed(page: Int, limit: Int): PostFeed @auth
     usersSearch(page: Int, limit: Int, text: String!): UserSearch
   }
 
