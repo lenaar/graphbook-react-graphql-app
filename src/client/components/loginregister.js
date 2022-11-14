@@ -42,3 +42,15 @@ const LoginForm = ({ changeLoginState }) => {
     </div>
   );
 };
+
+const LoginRegisterForm = ({ changeLoginState }) => {
+  return (
+    <div className="authModal">
+      <div>
+        <LoginForm changeLoginState={changeLoginState} />
+      </div>
+    </div>
+  );
+};
+
+export default LoginRegisterForm;
