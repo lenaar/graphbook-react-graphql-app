@@ -44,21 +44,21 @@ export default function resolver() {
         });
       },
       chats(root, args, context) {
-        return User.findAll().then((users) => {
-          if (!users.length) return [];
-          const usersRow = users[0];
-
-          return Chat.findAll({
-            include: [
-              {
-                model: User,
-                required: true,
-                through: { where: { userId: usersRow.id } },
-              },
-              { model: Message },
-            ],
-          });
+        return Chat.findAll({
+          include: [
+            {
+              model: User,
+              required: true,
+              through: { where: { userId: context.user.id } },
+            },
+            {
+              model: Message,
+            },
+          ],
         });
+      },
+      currentUser(root, args, context) {
+        return context.user;
       },
       posts(root, args, context) {
         return Post.findAll({ order: [["createdAt", "DESC"]] });
@@ -188,7 +188,7 @@ export default function resolver() {
         );
       },
       signup(root, { email, password, username }, context) {
-        return Users.findAll({
+        return User.findAll({
           where: { [Op.or]: [{ email }, { username }] },
           raw: true,
         }).then(async (users) => {
@@ -202,9 +202,9 @@ export default function resolver() {
                 activated: 1,
               }).then((newUser) => {
                 const token = JWT.sign({ email, id: newUser.id }, JWT_SECRET, {
-                  expirese: "1d",
+                  expiresIn: "1d",
                 });
-                return token;
+                return { token };
               })
             );
         });

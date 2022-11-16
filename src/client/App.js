@@ -4,18 +4,19 @@ import { faker } from "@faker-js/faker";
 import Chats from "./Chats";
 import Feed from "./Feed";
 import Bar from "./components/bar";
+import Loading from "./components/loading";
 import LoginRegisterForm from "./components/loginregister";
+import { useCurrentUserQuery } from "./apollo/queries/currentUserQuery";
 import "./components/fontawesome";
 import "../../assets/css/style.css";
 
-const initialPosts = [1, 2].map((id) => ({
-  id,
-  text: faker.lorem.paragraph(),
-  user: { avatar: faker.image.avatar(), username: faker.internet.userName() },
-}));
-
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem("jwt"));
+  const { data, error, loading, refetch } = useCurrentUserQuery();
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className="container">
