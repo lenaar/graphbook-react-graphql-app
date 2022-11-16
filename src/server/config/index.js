@@ -2,6 +2,7 @@ const root = require("path").join(__dirname, "../../../");
 require("dotenv").config({ path: root + ".env" });
 
 module.exports = {
+  JWT_SECRET: process.env.JWT_SECRET,
   development: {
     username: process.env.DATABASE_USER,
     password: process.env.DATABASE_PASSWORD,

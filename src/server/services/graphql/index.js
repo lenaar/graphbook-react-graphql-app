@@ -5,7 +5,7 @@ import Resolvers from "./resolvers";
 import Schema from "./schema";
 import authDirective from "./auth";
 import JWT from "jsonwebtoken";
-const { JWT_SECRET } = process.env;
+import { JWT_SECRET } from "../../config";
 
 export default (utils) => {
   const { authDirectiveTypeDefs, authDirectiveTransformer } =
