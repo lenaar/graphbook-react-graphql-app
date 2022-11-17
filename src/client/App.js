@@ -11,7 +11,7 @@ import "./components/fontawesome";
 import "../../assets/css/style.css";
 
 const App = () => {
-  const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem("jwt"));
+  const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem("jwt-token"));
   const { data, error, loading, refetch } = useCurrentUserQuery();
 
   if (loading) {

@@ -13,7 +13,7 @@ const LoginForm = ({ changeLoginState }) => {
     login({
       update(cache, { data: { login } }) {
         if (login.token) {
-          localStorage.setItem("jwt", login.token);
+          localStorage.setItem("jwt-token", login.token);
           changeLoginState(true);
         }
       },
@@ -30,7 +30,10 @@ const LoginForm = ({ changeLoginState }) => {
             onChange={(event) => setEmail(event.target.value)}
           />
           <label>Password</label>
-          <input onChange={(event) => setPassword(event.target.value)} />
+          <input
+            type="password"
+            onChange={(event) => setPassword(event.target.value)}
+          />
           <input type="submit" value="Login" />
         </form>
       )}
@@ -54,14 +57,13 @@ const RegisterForm = ({ changeLoginState }) => {
     signup({
       update(cache, { data: { login } }) {
         if (login.token) {
-          localStorage.setItem("jwt", login.token);
+          localStorage.setItem("jwt-token", login.token);
           changeLoginState(true);
         }
       },
       variables: { email, password, username },
     });
   };
-
   return (
     <div className="login">
       {!loading && (

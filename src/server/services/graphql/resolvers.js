@@ -176,8 +176,8 @@ export default function resolver() {
           },
           raw: true,
         }).then(async (users) => {
-          if ((users.length = 1)) {
-            const user = users[0];
+          if (users.length == 1) {
+            const [user] = users;
             const passwordValid = await bcrypt.compare(password, user.password);
             if (!passwordValid) {
               throw new Error("Password does not match");
@@ -188,9 +188,7 @@ export default function resolver() {
             return {
               token,
             };
-          } else {
-            throw new Error("User not found");
-          }
+          } else throw new Error("User not found");
         });
       },
       signup(root, { email, password, username }, context) {

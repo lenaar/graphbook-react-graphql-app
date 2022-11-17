@@ -69,7 +69,7 @@ const typeDefinitions = `
     addChat (
       chat: ChatInput!
     ): Chat
-    addMessage(
+    addMessage (
       message: MessageInput!
     ): Message
     addPost (

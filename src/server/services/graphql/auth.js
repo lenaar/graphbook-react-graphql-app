@@ -19,8 +19,10 @@ function authDirective(directiveName) {
             typeDirectiveArgumentMaps[typeName];
           if (authDirective) {
             const { resolve = defaultFieldResolver } = fieldConfig;
-            fieldConfig.resolve = (source, args, context, info) => {
-              if (context.user) return resolve(source, args, context, info);
+            fieldConfig.resolve = function (source, args, context, info) {
+              if (context.user) {
+                return resolve(source, args, context, info);
+              }
               throw new Error("You need to be logged in.");
             };
             return fieldConfig;
