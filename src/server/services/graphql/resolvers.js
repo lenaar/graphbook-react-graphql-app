@@ -121,23 +121,19 @@ export default function resolver() {
         });
       },
       addPost(root, { post }, context) {
-        return User.findAll().then((users) => {
-          // the first user in the users array
-          const usersRow = users[0];
-          logger.log({
-            level: "info",
-            message: `User fetched ${usersRow.id}`,
-          });
-          return Post.create({
-            ...post,
-          }).then((newPost) => {
-            return Promise.all([newPost.setUser(usersRow.id)]).then(() => {
-              logger.log({
-                level: "info",
-                message: "Post was created",
-              });
-              return newPost;
+        logger.log({
+          level: "info",
+          message: `The user ${context.user.id} has submitted a new post`,
+        });
+        return Post.create({
+          ...post,
+        }).then((newPost) => {
+          return Promise.all([newPost.setUser(context.user.id)]).then(() => {
+            logger.log({
+              level: "info",
+              message: "Post was created",
             });
+            return newPost;
           });
         });
       },
