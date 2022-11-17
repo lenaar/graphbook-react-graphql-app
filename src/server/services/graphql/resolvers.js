@@ -107,31 +107,27 @@ export default function resolver() {
         });
       },
       addMessage(root, { message }, context) {
-        return User.findAll().then((users) => {
-          const { id: userId } = users[0];
-          return Message.create({ ...message }).then((newMessage) => {
-            return Promise.all([
-              newMessage.setUser(userId),
-              newMessage.setChat(message.chatId),
-            ]).then(() => {
-              logger.log({ level: "info", message: "Message was created" });
-              return newMessage;
+        return Message.create({ ...message }).then((newMessage) => {
+          return Promise.all([
+            newMessage.setUser(context.user.id),
+            newMessage.setChat(message.chatId),
+          ]).then(() => {
+            logger.log({
+              level: "info",
+              message: `Message was created by ${context.user.username}`,
             });
+            return newMessage;
           });
         });
       },
       addPost(root, { post }, context) {
-        logger.log({
-          level: "info",
-          message: `The user ${context.user.id} has submitted a new post`,
-        });
         return Post.create({
           ...post,
         }).then((newPost) => {
           return Promise.all([newPost.setUser(context.user.id)]).then(() => {
             logger.log({
               level: "info",
-              message: "Post was created",
+              message: `Post was created by ${context.user.username}`,
             });
             return newPost;
           });
