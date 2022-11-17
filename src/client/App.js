@@ -14,6 +14,11 @@ const App = () => {
   const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem("jwt-token"));
   const { data, error, loading, refetch } = useCurrentUserQuery();
 
+  const handleLogin = (status) =>
+    refetch()
+      .then(() => setLoggedIn(status))
+      .catch(() => setLoggedIn(status));
+
   if (loading) {
     return <Loading />;
   }
@@ -30,7 +35,7 @@ const App = () => {
       </Helmet>
       {loggedIn && (
         <div>
-          <Bar changeLoginState={setLoggedIn} />
+          <Bar changeLoginState={handleLogin} />
           <Feed />
           <Chats />
         </div>

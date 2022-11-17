@@ -1,9 +1,10 @@
 import React from "react";
+import Logout from "./logout";
 import SearchBar from "./search";
 import UserBar from "./user";
 import { UserConsumer } from "../context/user";
 
-const Bar = () => {
+const Bar = ({ changeLoginState }) => {
   return (
     <div className="topbar">
       <div className="inner">
@@ -11,6 +12,9 @@ const Bar = () => {
         <UserConsumer>
           <UserBar />
         </UserConsumer>
+      </div>
+      <div className="buttons">
+        <Logout changeLoginState={changeLoginState} />
       </div>
     </div>
   );
