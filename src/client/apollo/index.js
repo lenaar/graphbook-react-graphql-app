@@ -2,7 +2,7 @@ import { ApolloClient, InMemoryCache, from, HttpLink } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
 
 const AuthLink = (operation, next) => {
-  const token = localStorage.getItem("jwt");
+  const token = localStorage.getItem("jwt-token");
   if (token) {
     operation.setContext((context) => ({
       ...context,
