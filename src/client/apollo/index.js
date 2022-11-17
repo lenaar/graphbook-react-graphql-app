@@ -12,6 +12,7 @@ const AuthLink = (operation, next) => {
       },
     }));
   }
+  return next(operation);
 };
 
 const client = new ApolloClient({
