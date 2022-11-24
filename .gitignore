@@ -3,3 +3,4 @@ dist
 .env
 yarn.lock
 styleguide
+src/server/config/aws.json

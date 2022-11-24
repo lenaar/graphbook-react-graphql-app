@@ -3,6 +3,8 @@ require("dotenv").config({ path: root + ".env" });
 
 module.exports = {
   JWT_SECRET: process.env.JWT_SECRET,
+  AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
+  AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
   development: {
     username: process.env.DATABASE_USER,
     password: process.env.DATABASE_PASSWORD,
