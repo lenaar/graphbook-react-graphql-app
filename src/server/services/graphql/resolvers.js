@@ -92,6 +92,13 @@ export default function resolver() {
         }
         return { posts: Post.findAll(query) };
       },
+      user(root, { username }, context) {
+        return User.findOne({
+          where: {
+            username,
+          },
+        });
+      },
       usersSearch(root, { page, limit, text }, context) {
         if (text.length < 3) return { users: [] };
         let skip = 0;

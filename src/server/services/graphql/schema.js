@@ -58,6 +58,7 @@ const typeDefinitions = `
     currentUser: User @auth
     posts: [Post]
     postsFeed(page: Int, limit: Int, username: String): PostFeed @auth
+    user(username: String!): User @auth
     usersSearch(page: Int, limit: Int, text: String!): UserSearch
   }
 

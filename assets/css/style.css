@@ -371,3 +371,11 @@ form [type=submit] {
   float: right;
   margin-top: 10px;
 }
+
+.post .header a > * {
+
+  display: inline-block;
+
+  vertical-align: middle;
+
+}
