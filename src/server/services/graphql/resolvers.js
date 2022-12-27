@@ -3,24 +3,16 @@ import logger from "../../helpers/logger";
 import bcrypt from "bcrypt";
 import JWT from "jsonwebtoken";
 import GraphQLUpload from "graphql-upload/GraphQLUpload.js";
-import {
-  JWT_SECRET,
-  AWS_ACCESS_KEY_ID,
-  AWS_SECRET_ACCESS_KEY,
-} from "../../config";
+import { JWT_SECRET } from "../../config";
 import json from "../../config";
 
 import aws from "aws-sdk";
-
-aws.config.loadFromPath("./src/server/config/aws.json"); //src/server/config/aws.json
 
 const s3 = new aws.S3({
   signatureVersion: "v4",
 
   region: "eu-north-1",
 });
-
-s3.config.loadFromPath("./src/server/config/aws.json");
 
 const Op = Sequelize.Op;
 
