@@ -17,6 +17,8 @@ module.exports = {
     path: path.join(__dirname, outputDirectory),
 
     filename: "bundle.js",
+
+    publicPath: "/", // prefix the bundle URL to an absolute path, instead of a relative path
   },
 
   module: {

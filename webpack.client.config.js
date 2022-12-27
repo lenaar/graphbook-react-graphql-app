@@ -14,9 +14,11 @@ module.exports = {
   entry: "./src/client/index.js",
 
   output: {
-    path: path.join(__dirname, outputDirectory),
+    path: path.join(__dirname, buildDirectory),
 
     filename: "bundle.js",
+
+    publicPath: "/", // prefix the bundle URL to an absolute path, instead of a relative path
   },
 
   module: {
@@ -43,6 +45,8 @@ module.exports = {
     port: 3000,
 
     open: true,
+
+    historyApiFallback: true, // serve the index.html file, not only for the root path, but for 404 too
   },
 
   plugins: [
