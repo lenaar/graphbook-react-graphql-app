@@ -73,7 +73,7 @@ export default function resolver() {
       posts(root, args, context) {
         return Post.findAll({ order: [["createdAt", "DESC"]] });
       },
-      postsFeed(root, { page, limit }) {
+      postsFeed(root, { page, limit, username }, context) {
         let skip = 0;
         if (page && limit) {
           skip = page * limit;
@@ -84,6 +84,11 @@ export default function resolver() {
         };
         if (limit) {
           query.limit = limit;
+        }
+        if (username) {
+          query.include = [{ model: User }];
+
+          query.where = { "$User.username$": username };
         }
         return { posts: Post.findAll(query) };
       },

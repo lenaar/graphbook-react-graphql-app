@@ -57,7 +57,7 @@ const typeDefinitions = `
     chats: [Chat] @auth
     currentUser: User @auth
     posts: [Post]
-    postsFeed(page: Int, limit: Int): PostFeed @auth
+    postsFeed(page: Int, limit: Int, username: String): PostFeed @auth
     usersSearch(page: Int, limit: Int, text: String!): UserSearch
   }
 
