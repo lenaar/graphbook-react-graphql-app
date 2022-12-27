@@ -11,11 +11,17 @@ import LoginRegisterForm from "./components/loginregister";
 
 import Main from "./Main";
 
+import User from "./User";
+
 const PrivateRoute = ({ children, loggedIn }) =>
   loggedIn === true ? children : <Navigate to="/" />;
 
 const LoginRoute = ({ children, loggedIn }) =>
   loggedIn === false ? children : <Navigate to="/app" />;
+
+const NotFound = () => {
+  return <Navigate to="/" />;
+};
 
 export const routing = ({ changeLoginState, loggedIn }) => {
   return (
@@ -32,6 +38,15 @@ export const routing = ({ changeLoginState, loggedIn }) => {
         />
         <Route
           exact
+          path="/user/:username"
+          element={
+            <PrivateRoute loggedIn={loggedIn}>
+              <User changeLoginState={changeLoginState} />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          exact
           path="/"
           element={
             <LoginRoute loggedIn={loggedIn}>
@@ -39,6 +54,7 @@ export const routing = ({ changeLoginState, loggedIn }) => {
             </LoginRoute>
           }
         />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );
