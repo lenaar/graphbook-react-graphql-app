@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { gql, useQuery, useMutation } from "@apollo/client";
 import InfiniteScroll from "react-infinite-scroll-component";
 import "../../assets/css/style.css";
+import FeedList from "./components/post/feedlist";
 import Loading from "./components/loading";
 import Error from "./components/error";
-import Post from "./components/post";
 import { GET_POSTS } from "./apollo/queries/getPosts";
 import { useAddPostMutation } from "./apollo/mutations/addPost";
 
@@ -67,32 +67,15 @@ const Feed = () => {
         <form onSubmit={handleSubmit}>
           <textarea
             value={postContent}
-            onChange={(e) => {
-              console.log("change");
-              setPostContent(e.target.value);
-            }}
-            placeholder="Write a new post!"
+            onChange={(e) => setPostContent(e.target.value)}
+            placeholder="Write your custom post!"
           />
 
           <input type="submit" value="Submit" />
         </form>
       </div>
-      <div className="feed">
-        <InfiniteScroll
-          dataLength={posts.length}
-          next={() => loadMore(fetchMore)}
-          hasMore={hasMore}
-          loader={
-            <div className="loader" key={"loader"}>
-              Loading ...
-            </div>
-          }
-        >
-          {posts.map((post) => (
-            <Post key={post.id} post={post} />
-          ))}
-        </InfiniteScroll>
-      </div>
+
+      <FeedList posts={posts} fetchMore={loadMore} />
     </div>
   );
 };
