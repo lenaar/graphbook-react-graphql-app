@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { faker } from "@faker-js/faker";
 import { withApollo } from "@apollo/client/react/hoc";
-import Chats from "./Chats";
-import Feed from "./Feed";
-import Bar from "./components/bar";
+import Router from "./router";
 import Loading from "./components/loading";
 import LoginRegisterForm from "./components/loginregister";
 import { useCurrentUserQuery } from "./apollo/queries/currentUserQuery";
 import "./components/fontawesome";
+import "cropperjs/dist/cropper.css";
 import "../../assets/css/style.css";
+
 const App = ({ client }) => {
   const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem("jwt-token"));
   const { data, error, loading, refetch } = useCurrentUserQuery();
@@ -35,14 +35,7 @@ const App = ({ client }) => {
           content="Newsfeed of all fake friends on Graphbook"
         />
       </Helmet>
-      {loggedIn && (
-        <div>
-          <Bar changeLoginState={handleLogin} />
-          <Feed />
-          <Chats />
-        </div>
-      )}
-      {!loggedIn && <LoginRegisterForm changeLoginState={setLoggedIn} />}
+      <Router loggedIn={loggedIn} changeLoginState={handleLogin} />{" "}
     </div>
   );
 };
