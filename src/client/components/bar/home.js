@@ -1,10 +1,12 @@
 import React from "react";
 
-import { withRouter } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 const Home = ({ history }) => {
+  const navigate = useNavigate();
+
   const goHome = () => {
-    history.push("/app");
+    navigate("/app");
   };
 
   return (
@@ -14,4 +16,4 @@ const Home = ({ history }) => {
   );
 };
 
-export default withRouter(Home);
+export default Home;

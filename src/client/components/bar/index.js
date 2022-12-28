@@ -1,4 +1,5 @@
 import React from "react";
+import Home from "./home";
 import Logout from "./logout";
 import SearchBar from "./search";
 import UserBar from "./user";
@@ -14,7 +15,10 @@ const Bar = ({ changeLoginState }) => {
         </UserConsumer>
       </div>
       <div className="buttons">
-        <Logout changeLoginState={changeLoginState} />
+        <div className="buttons">
+          <Home />
+          <Logout changeLoginState={changeLoginState} />
+        </div>
       </div>
     </div>
   );
